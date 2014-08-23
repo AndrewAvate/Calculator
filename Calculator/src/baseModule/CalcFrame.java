@@ -47,8 +47,12 @@ public class CalcFrame extends Application {
 			public void handle(ActionEvent event) {
 				Calculator calc = new Calculator();
 				calc.convertToReversePolishNotation(field.getText());
+				
+				//it show reverse polish notation
 				// resultLabel.setText(calc.getReversePolishNotation());
 				calc.calculateReversePolishNotation();
+				
+				//it show result of the calculation
 				resultLabel.setText(calc.getResult());
 			}
 		});
