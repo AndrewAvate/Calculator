@@ -9,14 +9,23 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
+import configs.LoggerConfig;
+
 public class Calculator {
 
+	private static Logger logger = Logger.getLogger(Calculator.class);
+	
 	private String result = "";
 	private String reversePolishNotation = "";
 	private Map<String, Integer> priority = new HashMap<String, Integer>();
-	List<String> output = new ArrayList<String>();
+	private List<String> output = new ArrayList<String>();
 
 	public Calculator() {
+		LoggerConfig logConf = new LoggerConfig(LoggerConfig.LOG_PROPERTIES_FILE);
+		logConf.init();
+		
 		priority.put("+", 1);
 		priority.put("-", 1);
 		priority.put("*", 2);
@@ -25,6 +34,7 @@ public class Calculator {
 	}
 
 	public void convertToReversePolishNotation(String inputStr) {
+		logger.info("input exspession: " + inputStr);
 		setResult("");
 		setReversePolishNotation("");
 		String inputString = inputStr;
@@ -83,9 +93,10 @@ public class Calculator {
 		}
 
 		for (String s : output) {
-			reversePolishNotation += s;
+			reversePolishNotation += s+" ";
 		}
 
+		logger.info("reverse polish notation: " + reversePolishNotation);
 	}
 
 	public void calculateReversePolishNotation() {
@@ -141,6 +152,8 @@ public class Calculator {
 		}
 		
 		result = calcStack.pop().toString();
+		
+		logger.info("result: " + result);
 	}
 
 	// getter & setters

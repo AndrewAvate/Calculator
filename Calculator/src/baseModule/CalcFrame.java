@@ -1,5 +1,8 @@
 package baseModule;
 
+import org.apache.log4j.Logger;
+
+import configs.LoggerConfig;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +17,9 @@ import javafx.stage.Stage;
 import logic.Calculator;
 
 public class CalcFrame extends Application {
+	
+	private static Logger logger = Logger.getLogger(CalcFrame.class);
+	
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -47,12 +53,8 @@ public class CalcFrame extends Application {
 			public void handle(ActionEvent event) {
 				Calculator calc = new Calculator();
 				calc.convertToReversePolishNotation(field.getText());
-				
-				//it show reverse polish notation
 				// resultLabel.setText(calc.getReversePolishNotation());
 				calc.calculateReversePolishNotation();
-				
-				//it show result of the calculation
 				resultLabel.setText(calc.getResult());
 			}
 		});
@@ -60,6 +62,10 @@ public class CalcFrame extends Application {
 	}
 
 	public static void main(String[] args) {
+		LoggerConfig logConf = new LoggerConfig(LoggerConfig.LOG_PROPERTIES_FILE);
+		logConf.init();
+		logger.info("run program");
+		
 		launch(args);
 	}
 }
